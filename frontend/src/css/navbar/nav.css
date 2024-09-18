@@ -1,0 +1,18 @@
+.navbox{
+   background-color: #1a2238;
+}
+.navpart ul{
+   font-weight: 300;
+   list-style: none;
+}
+.orange-btn{
+   color:#ff6a3d;
+   border: 1px solid #ff6a3d !important;
+}
+.orange{
+   color: #ff6a3d;
+}
+.orange-btn:hover{
+  background-color: #ff6a3d !important;
+  color: white !important; 
+}
