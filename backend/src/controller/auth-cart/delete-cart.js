@@ -8,8 +8,21 @@ const itemDeleteCart = async (req, res) => {
       userId,
       productId,
     });
+    const items = await cartSchema
+      .find({
+        userId: userId,
+      })
+      .populate("productId");
+    let price1 = 0;
+    let price2 = 0;
+    for (let index = 0; index < items.length; index++) {
+      price1 += items[index]?.productId?.price * items[index]?.quantity;
+      price2 += items[index]?.productId?.sellingPrice * items[index]?.quantity;
+    }
     res.status(201).json({
-      data: deleteProduct,
+      tp: price1,
+      sp: price2,
+      data: items,
       error: false,
       success: true,
       msg: "item is deleted",

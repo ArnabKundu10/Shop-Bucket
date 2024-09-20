@@ -17,12 +17,12 @@ const productsupload = async (req, res) => {
       category: category,
       productImage: productImage,
       description: description,
-      price: price,
-      sellingPrice: sellingPrice,
+      price: Number(price),
+      sellingPrice: Number(sellingPrice),
     });
     const prod = await newProduct.save();
     console.log(prod);
-    res.send(prod);
+    res.status(201).send(prod);
   } catch (error) {
     console.log(error);
     res.send(error);

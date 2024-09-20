@@ -10,6 +10,11 @@ const requireSignIn = async (req, res, next) => {
     console.log(req.user);
     next();
   } catch (error) {
+    res.status(500).send({
+      msg: "please login first",
+      success: 0,
+      error: true,
+    });
     console.log(error);
   }
 };

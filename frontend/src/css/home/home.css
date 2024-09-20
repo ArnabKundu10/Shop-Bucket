@@ -1,0 +1,48 @@
+.font-page{
+   background: linear-gradient(to left,#d4cdcb,#f2cfc4,#dda290,#f9997c);
+   padding-top: 200px;
+}
+.vh-100{
+   height: 100vh;
+}
+.blackish{
+   color: #1a2238;
+}
+.fw-900{
+   font-weight:900;
+}
+.orange-main-btn{
+   padding: 3%;
+   color: black;
+   border: 2px solid #ff6a3d !important;
+   background-color: #ff6a3d;
+   font-size: larger;
+   font-weight: 500;
+}
+.orange-main-btn:hover{
+ color:#ff6a3d !important;
+ background-color: white;
+}
+.product-image{
+width: 100%;
+height: 200px;
+}
+.img-cover{
+height: 200px;
+}
+.prduct-struct{
+   border: 2px solid #ff6a3d;
+}
+.text-cut{
+   text-decoration-line: line-through;
+}
+.opacity-less{
+   opacity: 0.7;
+}
+.single-image-design{
+   width: 100%;
+   height: 500px;
+}
+.product-details{
+   padding-top: 120px;
+}

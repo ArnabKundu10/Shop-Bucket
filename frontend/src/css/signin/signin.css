@@ -1,11 +1,12 @@
 .register{
-   position: absolute;
+   position: fixed;
    left: 30%;
    border: 2px solid #ff6a3d;
    z-index: 3;
    box-shadow: 5px 5px 5px;
    width: 33%;
    background:linear-gradient(to right top,#ff6a3d,white,#ff6a3d);
+   margin-top: 80px;
 }
 .border-orange{
    border: 2px solid #ff6a3d;

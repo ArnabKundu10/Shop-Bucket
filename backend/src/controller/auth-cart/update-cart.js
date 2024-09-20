@@ -28,8 +28,9 @@ const decQuantity = async (req, res) => {
   try {
     const { productId, quantity } = req.body;
     const userId = req.user;
+    let qty = quantity;
     if (qty !== 1) {
-      let qty = quantity - 1;
+      qty = qty - 1;
     }
     const item = await cartSchema.updateOne(
       { userId, productId },

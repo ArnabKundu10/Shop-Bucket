@@ -1,16 +1,90 @@
+import axios from "axios";
 import { createContext,useContext,useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast"
 export const AuthContext=createContext();
-
 export const AuthProvider=({children})=>{
    const [token, setToken] = useState(localStorage.getItem("token"));
    const [signin,setSignin]=useState({display:"none"});
+   const [userid,setUser]=useState(localStorage.getItem("userid"));
+   const [userdetails,setUserdetails]=useState({
+      name:"",
+      email:"",
+      role:""
+   })
+   const[count,setCount]=useState(0);
+   const fetchCount=async()=>{
+      try {
+         const response = await axios.get(
+            `http://localhost:3000/auth/count-items`,
+            {
+              headers: {
+                "Authorization":token,
+              }
+            }
+          ); 
+          console.log(response);
+          if(response.data.success){
+            setCount(response.data.count);  
+          }
+      } catch (error) {
+         console.log(error);
+      }
+   }
    useEffect(()=>{
       if(token){
          setSignin({display:"none"}) ;
       }
-      },[])
+      const fetchDetails=async()=>{
+         try {
+            const response = await fetch(
+               `http://localhost:3000/auth/customer/${userid}`,
+               {
+                 method: "GET",
+                 headers: {
+                   "Content-Type": "application/json",
+                   credentials: "include",
+                 }
+               }
+             ); 
+             if(response.ok){
+               const userinfos=await response.json();
+               setUserdetails(userinfos.user);  
+               console.log(userinfos);  
+             }
+         } catch (error) {
+            console.log(error);
+         }
+      }
+      fetchDetails();
+      token?fetchCount():setCount(0);
+      },[token]);
+      const addCart=async(e,item)=>{
+         try {
+          e.preventDefault();
+          e.stopPropagation();
+          const response=await axios.post(
+             `http://localhost:3000/auth/add-to-cart`,{productId:item._id},
+             {
+               headers: {
+                 "Authorization":token,
+               }
+             }
+           ); 
+          console.log(response);
+          if(response.data.success){
+             setCount(count+1);
+             toast.success(response.data.message);
+          }
+          else{
+           toast.error(response.data.message);
+          }
+         } catch (error) {
+          toast.error("please login first");
+          setSignin({display:"block"});
+         }
+       }
    return (
-      <AuthContext.Provider value={{token,setToken,signin,setSignin}}>
+      <AuthContext.Provider value={{addCart,token,setToken,signin,setSignin,userid,setUser,userdetails,count,setCount}}>
          {children}
       </AuthContext.Provider>
    )

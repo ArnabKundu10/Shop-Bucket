@@ -17,15 +17,19 @@ const {
 const allProducts = require("../controller/auth-product/allproducts");
 const googleLogin = require("../controller/auth-user/googleLogin");
 const imageUpload = require("../controller/auth-product/image-upload");
+const customerDetails = require("../controller/auth-user/customerDetails");
+const productDetails = require("../controller/auth-product/product-details");
 const route = express.Router();
 
 // user setup
 route.get("/google", googleLogin);
 route.post("/register", register);
 route.post("/login", login);
+route.get("/customer/:id", customerDetails);
 
 // product setup
 route.get("/products", allProducts);
+route.get("product/:id", productDetails);
 
 // cart setup
 route.post("/add-to-cart", requireSignIn, addToCart);
@@ -62,7 +66,8 @@ const upload = multer({
     if (
       file.mimetype == "image/png" ||
       file.mimetype == "image/jpg" ||
-      file.mimetype == "image/jpeg"
+      file.mimetype == "image/jpeg" ||
+      file.mimetype == "image/webp"
     ) {
       cb(null, true);
     } else {
