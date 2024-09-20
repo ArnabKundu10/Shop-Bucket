@@ -9,7 +9,7 @@ import toast, { Toaster } from "react-hot-toast"
 
 const SignIn = () => {
   const navigate=useNavigate();
-  const {setSignin,signin,setToken}=useAuth();
+  const {setSignin,signin,setToken,setUser,userid,fetchCount}=useAuth();
   const[status,setStatus]=useState("Sign Up");
   const [registerdata, setRegister] = useState({
     name: "",
@@ -20,10 +20,12 @@ const SignIn = () => {
     try{
     if(authResult['code']){
     const result = await googleAuth (authResult['code']);
-    const {email,name}= result.data.user;
+    // const {email,name}= result.data.user;
     console.log('result.data.user---', result.data);
     localStorage.setItem("token", result.data.token);
         setToken(localStorage.getItem("token"));
+        localStorage.setItem("userid",result.data.user._id);
+        setUser(localStorage.getItem("userid"));
         setSignin({display:"none"});
         navigate("/");
     }
@@ -67,19 +69,20 @@ const SignIn = () => {
       if (response.ok) {
         if (response.status === 201) {
           const responseData = await response.json();
-          console.log(responseData.token);
+          console.log(responseData.user);
           localStorage.setItem("token", responseData.token);
         setToken(localStorage.getItem("token"));
+        // setUser(responseData.user);
           setRegister({
             name: "",
             email: "",
             password: ""
           });
           setSignin({display:"none"});
-          navigate("/");
           toast.success(
             "your account has been created! please login to visit home page"
           );
+          navigate("/"); 
         } else {
           toast.error("identical email is not allowed!");
         }
@@ -108,9 +111,12 @@ const SignIn = () => {
       // console.log("response data : ", response);
       if (response.ok) {
         const responseData = await response.json();
-        console.log(responseData.token);
+        console.log(responseData.user);
         localStorage.setItem("token", responseData.token);
+        localStorage.setItem("userid",responseData.user._id);
         setToken(localStorage.getItem("token"));
+        setUser(localStorage.getItem("userid"));
+        console.log(userid);
         setRegister({
           email: "",
           password: "",
@@ -128,7 +134,7 @@ const SignIn = () => {
   return (
        <div
           id="register" style={signin}
-          className="register col-md-4 border-opacity-50 ps-5 pe-5 pt-3 pb-3 rounded mt-2"
+          className="register col-md-4 border-opacity-50 ps-5 pe-5 pt-3 pb-3 rounded"
         >
           <p onClick={()=>{setSignin({display:"none"})}} className="fw-bold text-end p-0 m-0"><button className='btn orange-btn text-black'><i className="fs-2 fa-solid fa-xmark"></i></button></p>
           {status==="Sign Up"?

@@ -9,9 +9,7 @@ const itemCountCart = async (req, res) => {
     });
 
     res.json({
-      data: {
-        count: count,
-      },
+      count: count,
       message: "ok",
       error: false,
       success: true,

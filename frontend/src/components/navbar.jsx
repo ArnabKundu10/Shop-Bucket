@@ -1,13 +1,15 @@
 import React from 'react'
 import "../css/navbar/nav.css"
 import { useAuth } from '../store/auth'
+import {Link, useNavigate} from "react-router-dom"
 const Navbar = () => {
-  const {token,setSignin,setToken}=useAuth();
+  const {token,setSignin,setToken,userdetails,count,}=useAuth();
+  const navigate=useNavigate();
   return (
-    <div className="navbox d-md-flex justify-content-between pt-2 pb-2">
+    <div className="navbox position-fixed d-md-flex justify-content-between pt-2 pb-2 w-100">
       <div className="navpart d-md-flex w-75">
-       <div className='text-white fs-1 fw-bolder align-self-center ms-2 me-5'>
-        <span className='orange'>S</span>hop <span className='orange'>B</span>ucket
+       <div className='text-white fs-1 fw-bolder align-self-center ms-2 me-5 cursor-pointer' onClick={()=>navigate("/")}>
+        <span className='orange'>S</span>hop<span className='orange'>B</span>ucket
        </div>
        <div className='align-self-center col-md-8'>
        <form className="d-flex w-100" role="search">
@@ -19,19 +21,43 @@ const Navbar = () => {
       <div className="navpart w-25 text-center align-self-center">
        <ul className='d-md-flex justify-content-center text-decoration-none fs-5'>
        <li className="nav-item dropdown text-white me-5 align-self-center">
-          <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
+          <Link className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Categories
+          </Link>
           <ul className="dropdown-menu">
-            <li><a className="dropdown-item" href="#">Action</a></li>
+            <li><Link className="dropdown-item" href="#">Electronics</Link></li>
             <li><hr className="dropdown-divider"/></li>
-            <li><a className="dropdown-item" href="#">Another action</a></li>
+            <li><Link className="dropdown-item" href="#">Dress</Link></li>
             <li><hr className="dropdown-divider"/></li>
-            <li><a className="dropdown-item" href="#">Something else here</a></li>
+            <li><Link className="dropdown-item" href="#">Something else here</Link></li>
           </ul>
         </li>
-        <li className='text-white me-5 align-self-center'><i class="fs-3 fa-solid orange fa-cart-shopping"></i></li>
-        <li className='btn orange-btn border p-2 rounded align-self-center'>{token ?<i onClick={()=>{setToken(localStorage.removeItem("token"))}} className="fa-solid fs-4 fa-user"></i>:<p onClick={()=>{setSignin({display:"block"})}} className='m-0'>Sign In</p>}</li>
+        <li className='text-white me-5 align-self-center cursor-pointer' onClick={()=>navigate("/cart")}>
+          <i class="fs-3 fa-solid orange fa-cart-shopping"></i>
+          <div className="text-white rounded-circle set-cnt">{count}</div>
+        </li>
+        <li className='btn orange-btn border p-2 rounded align-self-center'>{token ?
+        <>
+          <Link className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i /* onClick={()=>{setToken(localStorage.removeItem("token"))}} */ className="fa-solid fs-4 fa-user"></i>
+          </Link>
+          <ul className="dropdown-menu mt-4">
+            <div className='text-center'>
+             <p className='text-white orange-bg fs-2 letter-logo rounded-circle'>{userdetails?userdetails.name.substring(0,1).toUpperCase():""}</p>
+             <p className='orange fw-500 fs-5'>{userdetails?userdetails.name.toUpperCase():""}</p> 
+            </div>
+            <li><Link className="dropdown-item">My Details</Link></li>
+            <li><hr className="dropdown-divider"/></li>
+            <li><Link className="dropdown-item">My Dashboard</Link></li>
+            <li><hr className="dropdown-divider"/></li>
+            <li><Link className="dropdown-item" to="/admin-panel">Admin Panel</Link></li>
+            <li><hr className="dropdown-divider"/></li>
+            <li><Link className="dropdown-item">My Orders</Link></li>
+            <li><hr className="dropdown-divider"/></li>
+            <li onClick={()=>{setToken(localStorage.removeItem("token"));localStorage.removeItem("userid");}}><Link className="dropdown-item">Log Out </Link></li>
+          </ul>
+          </>
+          :<p onClick={()=>{setSignin({display:"block"})}} className='m-0'>Sign In</p>}</li>
        </ul>
       </div>
     </div>

@@ -1,0 +1,20 @@
+.sidebar{
+   height: 80vh;
+   background-color: #eba28c5b;
+}
+.admin-panel{
+   clear: both;
+}
+.panel-item{
+   text-decoration: none;
+   color: black !important;
+}
+.panel-option{
+   background-color: #ff6a3d;
+   border-bottom: 1px solid white;
+   font-weight: 300;
+}
+.add-product{
+   float: right;
+   clear: left;
+}
