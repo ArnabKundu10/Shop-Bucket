@@ -2,7 +2,11 @@
    height: 80vh;
    background-color: #eba28c5b;
 }
-.admin-panel{
+.filter-bar{
+   height: 95vh;
+   background-color: #eba28c5b;  
+}
+.admin-panel,.filter-panel{
    clear: both;
 }
 .panel-item{
@@ -14,7 +18,8 @@
    border-bottom: 1px solid white;
    font-weight: 300;
 }
-.add-product{
+.add-product,.filter-product{
    float: right;
    clear: left;
+   background-color: rgba(255, 244, 240, 0.404);
 }

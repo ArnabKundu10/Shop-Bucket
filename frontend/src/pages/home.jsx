@@ -5,8 +5,11 @@ import "../css/admin/admin.css";
 import React, { useEffect, useState } from 'react'
 import Grocery from "../assets/grocery.png"
 import ProductDesc from '../components/product-dec';
+import { useNavigate } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 const Home = () => {
   const[allproducts,setProduct]=useState([]);
+  const navigate=useNavigate();
   const latestTvs=allproducts?.filter((elem)=>elem?.category?.toUpperCase() ==="TV").slice(-8).reverse();
   console.log(latestTvs);
   useEffect(()=>{
@@ -35,7 +38,7 @@ const Home = () => {
             All of the groceries and accessories in one platform 
           </p>
           <p>
-            <button className='btn orange-main-btn'>
+            <button onClick={()=>navigate("/category")} className='btn orange-main-btn'>
               Grab Big Deals
             </button>
           </p>
@@ -56,6 +59,7 @@ const Home = () => {
         ))}
        </div>
       </section>
+      <Toaster/>
     </main>
   )
 }

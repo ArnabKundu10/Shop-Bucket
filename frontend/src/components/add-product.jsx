@@ -77,6 +77,9 @@ const handleSubmit=async(e)=>{
          <option value="camera">camera</option>
          <option value="earphone">earphone</option>
          <option value="shoe">shoe</option>
+         <option value="mobile">mobile</option>
+         <option value="watch">watch</option>
+         <option value="laptop">laptop</option>
          <option value="dress">dress</option>
       </select>
       <div className="mb-3">

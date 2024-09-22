@@ -10,7 +10,7 @@ const ProductDesc = ({item}) => {
    const {addCart}=useAuth();
     
   return (
-    <div className='col-md-2 m-4 prduct-struct rounded' onClick={(e)=>{e.preventDefault();navigate(`product/${item.productName}`,{state: {item,priceOff}})}}>
+    <div className='col-md-2 m-4 prduct-struct rounded' onClick={(e)=>{e.preventDefault();navigate(`/product/${item.productName}`,{state: {item,priceOff}})}}>
       <div className='img-cover'>
       <img src={item.productImage} alt="img" className='product-image rounded'/>
       </div>
