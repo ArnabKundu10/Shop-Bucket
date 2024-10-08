@@ -18,7 +18,7 @@ const Home = () => {
   useEffect(()=>{
     const fetchDetails=async()=>{
       try {
-        const response=await axios.get("http://localhost:3000/auth/products");
+        const response=await axios.get("https://shop-bucket.vercel.app/auth/products");
         setProduct(response.data.data); 
       } catch (error) {
         console.log(error)

@@ -42,7 +42,7 @@ const Category = () => {
   //get filterd product
   const filterProduct = async () => {
     try {
-      const { data } = await axios.post("http://localhost:3000/auth/product/filter", {
+      const { data } = await axios.post("https://shop-bucket.vercel.app/auth/product/filter", {
         checked,
         radio,
       });

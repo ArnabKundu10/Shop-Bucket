@@ -9,7 +9,7 @@ DBconnect();
 const PORT = process.env.PORT || 3000;
 app.use(
   cors({
-    origin: "https://spiffy-dolphin-15bd90.netlify.app/",
+    origin: "https://shop-bucket-99xb.vercel.app",
     methods: "GET,POST,PUT,DELETE",
     credentials: true,
   })
