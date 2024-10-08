@@ -1,3 +1,4 @@
+require("dotenv").config();
 const apiUrl = process.env.URL_REMOTE;
 const imageUpload = (req, res) => {
   try {

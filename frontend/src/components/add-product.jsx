@@ -31,7 +31,7 @@ const handleSubmit=async(e)=>{
       formdata.append("product",image);
       console.log(formdata);
       const resp=await axios.post("https://shop-bucket.vercel.app/auth/image-upload",formdata);
-
+       console.log(resp);
       if(resp.data.success){
          const tempProduct=product;
          tempProduct.productImage=resp.data.image_url;
@@ -53,7 +53,8 @@ const handleSubmit=async(e)=>{
       }
       toast.success("Product is added");
    } catch (error) {
-       toast.error(error);
+      console.log(error);
+       toast.error(error.message);
    }
 }
 
