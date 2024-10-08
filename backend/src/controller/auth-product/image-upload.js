@@ -1,7 +1,4 @@
-const apiUrl =
-  process.env.NODE_ENV === "development"
-    ? process.env.URL_LOCAL
-    : process.env.URL_REMOTE;
+const apiUrl = process.env.URL_REMOTE;
 const imageUpload = (req, res) => {
   try {
     const imageURL = `${apiUrl}/images/${req.file.filename}`;
