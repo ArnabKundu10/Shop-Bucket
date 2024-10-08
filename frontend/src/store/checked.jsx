@@ -4,9 +4,11 @@ import { createContext,useContext, useState } from "react";
 export const CheckContext=createContext();
 export const CheckProvider=({children})=>{
    const [checked, setChecked] = useState([]);
-
+   const [checkedValues, setCheckedValues] = useState(
+      () => JSON.parse(localStorage.getItem('checkedValues')) || {}
+    );
    return (
-      <CheckContext.Provider value={{checked,setChecked}}>
+      <CheckContext.Provider value={{checked,setChecked,checkedValues, setCheckedValues}}>
          {children}
       </CheckContext.Provider>
    )

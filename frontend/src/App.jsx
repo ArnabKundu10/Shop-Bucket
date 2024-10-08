@@ -16,7 +16,7 @@ const App = () => {
   return (
     <>
     <Navbar/>
-    <GoogleOAuthProvider clientId='799187700312-ebt90vbelvj30guccu1bkl30p4ot3bef.apps.googleusercontent.com'>
+    <GoogleOAuthProvider clientId={import.meta.env.VITE_CLIENT_ID}>
         <SignIn/>
     </GoogleOAuthProvider>
       <Routes>
@@ -32,8 +32,7 @@ const App = () => {
             <Route path="add-product" element={<AddProduct/>}/>
          </Route>
          <Route path="*" element={<Error/>}/>
-      </Routes>
-    
+      </Routes> 
     </>
   )
 }

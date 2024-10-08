@@ -11,11 +11,8 @@ import axios from 'axios';
 import { checkAuth } from '../store/checked';
 const Category = () => {
   const [products, setProducts] = useState([]);
-   const {checked,setChecked}=checkAuth();
+   const {checked,setChecked,checkedValues, setCheckedValues}=checkAuth();
    const [radio, setRadio] = useState([]);
-   const [checkedValues, setCheckedValues] = useState(
-    () => JSON.parse(localStorage.getItem('checkedValues')) || {}
-  );
 
   const handleFilter = (value, name) => {
     let all = [...checked];
@@ -49,7 +46,7 @@ const Category = () => {
         checked,
         radio,
       });
-      console.log(data);
+      // console.log(data);
       setProducts(data?.products);
     } catch (error) {
       console.log(error);

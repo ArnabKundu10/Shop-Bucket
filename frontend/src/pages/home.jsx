@@ -7,16 +7,18 @@ import Grocery from "../assets/grocery.png"
 import ProductDesc from '../components/product-dec';
 import { useNavigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
+import Footer from '../components/footer';
 const Home = () => {
   const[allproducts,setProduct]=useState([]);
   const navigate=useNavigate();
   const latestTvs=allproducts?.filter((elem)=>elem?.category?.toUpperCase() ==="TV").slice(-8).reverse();
-  console.log(latestTvs);
+  const latestCameras=allproducts?.filter((elem)=>elem?.category?.toUpperCase() ==="CAMERA").slice(-4).reverse();
+  const latestMobiles=allproducts?.filter((elem)=>elem?.category?.toUpperCase() ==="MOBILE").slice(-4).reverse();
+  const latestWatches=allproducts?.filter((elem)=>elem?.category?.toUpperCase() ==="WATCH").slice(-4).reverse();
   useEffect(()=>{
     const fetchDetails=async()=>{
       try {
         const response=await axios.get("http://localhost:3000/auth/products");
-        // console.log(response.data.data);
         setProduct(response.data.data); 
       } catch (error) {
         console.log(error)
@@ -26,6 +28,8 @@ const Home = () => {
   },[])
 
   return (
+    <>
+    
     <main>
       {/* front page */}
       <section className='font-page vh-100 ps-5 pe-5' >
@@ -49,9 +53,26 @@ const Home = () => {
         </div>
       </section>
       {/* electronics items */}
-      <section className='electronics vh-100 ps-5 pe-5'>
+      <section className='camera bg-blackish vh-100 pt-5 ps-5 pe-5'>
+       <p className='text-center text-white fs-1 fw-900 blackish'>
+         Brand New Cameras With Extra Features   
+       </p>
+       <p className='text-center text-white opacity-less fw-bolder blackish'>
+         Top brand's products at your hand with upto 60% discount  
+       </p>
+       <div className='d-flex flex-wrap justify-content-center'>
+        {latestCameras?.map((elem,index)=>(
+          <ProductDesc key={index} item={elem}/>
+        ))}
+       </div>
+      </section>
+      {/* cameras.................*/}
+      <section className='electronics pt-5 ps-5 pe-5 pb-5'>
        <p className='text-center fs-1 fw-900 blackish'>
-         Get Latest Tv and Laptop   
+         Get Latest Tv and Laptop at Minimum Price  
+       </p>
+       <p className='text-center opacity-less fw-bolder blackish'>
+         Top brand's products at your hand with upto 60% discount  
        </p>
        <div className='d-flex flex-wrap justify-content-center'>
         {latestTvs?.map((elem,index)=>(
@@ -59,8 +80,73 @@ const Home = () => {
         ))}
        </div>
       </section>
+      <section className='bg-blackish electronics ps-5 pe-5'>
+        <div className='vh-75 d-flex'>
+          <div className='w-50 d-flex flex-column align-self-center align-items-center'>
+          <p className='text-center text-white fs-1 fw-900 blackish'>
+         Brand New Watches With Extra Features   
+          </p>
+       <p className='text-center text-white opacity-less fw-bolder blackish'>
+         Top brand's products at your hand with upto 60% discount  
+         </p>
+          </div>
+        
+       <div className='d-flex w-50 flex-wrap justify-content-center align-self-center align-items-center'>
+        {latestWatches?.map((elem,index)=>(
+          <ProductDesc key={index} item={elem} doubleWidth="double"/>
+        ))}
+       </div>
+      </div>
+       
+      </section>
+      <section className='bg-blackish electronics ps-5 pe-5'>
+        <div className='vh-75 d-flex'>
+        <div className='d-flex w-50 flex-wrap justify-content-center align-self-center align-items-center'>
+        {latestCameras?.map((elem,index)=>(
+          <ProductDesc key={index} item={elem} doubleWidth="double"/>
+        ))}
+       </div>
+          <div className='w-50 d-flex flex-column align-self-center align-items-center'>
+          <p className='text-center text-white fs-1 fw-900 blackish'>
+         Brand New Cameras With Extra Features   
+          </p>
+       <p className='text-center text-white opacity-less fw-bolder blackish'>
+         Top brand's products at your hand with upto 60% discount  
+         </p>
+          </div>
+      </div>
+       
+      </section>
+      <section className='electronics pt-5 ps-5 pe-5 pb-5'>
+       <p className='text-center fs-1 fw-900 blackish'>
+         Get Latest Mobile at Minimum Price  
+       </p>
+       <p className='text-center opacity-less fw-bolder blackish'>
+         Top brand's products at your hand with upto 40% discount  
+       </p>
+       <div className='d-flex flex-wrap justify-content-center'>
+        {latestMobiles?.map((elem,index)=>(
+          <ProductDesc key={index} item={elem}/>
+        ))}
+       </div>
+      </section>
+      <section className='camera bg-blackish vh-100 pt-5 ps-5 pe-5'>
+       <p className='text-center text-white fs-1 fw-900 blackish'>
+         Brand New Watches With Extra Features   
+       </p>
+       <p className='text-center text-white opacity-less fw-bolder blackish'>
+         Top brand's products at your hand with upto 60% discount  
+       </p>
+       <div className='d-flex flex-wrap justify-content-center'>
+        {latestWatches?.map((elem,index)=>(
+          <ProductDesc key={index} item={elem}/>
+        ))}
+       </div>
+      </section>
       <Toaster/>
     </main>
+      <Footer/>
+      </>
   )
 }
 
