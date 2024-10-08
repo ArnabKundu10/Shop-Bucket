@@ -8,7 +8,7 @@ const DBconnect = require("./src/connection/db");
 DBconnect();
 const PORT = process.env.PORT || 3000;
 const apiUrl =
-  window.location.hostname === "localhost"
+  process.env.NODE_ENV === "development"
     ? process.env.URL_LOCAL
     : process.env.URL_REMOTE;
 app.use(
