@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import "../css/cart/cart.css"
 import { useAuth } from '../store/auth';
-import CartItem from '../components/CartItem';
+import CartItem from '../components/cartitem';
 
 const Cart = () => {
   const[items,setItems]=useState([]);
