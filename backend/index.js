@@ -7,9 +7,13 @@ const route = require("./src/routes/route");
 const DBconnect = require("./src/connection/db");
 DBconnect();
 const PORT = process.env.PORT || 3000;
+const apiUrl =
+  window.location.hostname === "localhost"
+    ? process.env.URL_LOCAL
+    : process.env.URL_REMOTE;
 app.use(
   cors({
-    origin: "https://shop-bucket-99xb.vercel.app",
+    origin: apiUrl,
     methods: "GET,POST,PUT,DELETE",
     credentials: true,
   })
