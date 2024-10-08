@@ -77,6 +77,9 @@ const handleSubmit=async(e)=>{
          <option value="camera">camera</option>
          <option value="earphone">earphone</option>
          <option value="shoe">shoe</option>
+         <option value="mobile">mobile</option>
+         <option value="watch">watch</option>
+         <option value="laptop">laptop</option>
          <option value="dress">dress</option>
       </select>
       <div className="mb-3">
@@ -99,7 +102,7 @@ const handleSubmit=async(e)=>{
          <img className='w-100' src={image && URL.createObjectURL(image)} alt="" />
       </div>
       <div class="d-grid gap-2 col-6 mx-auto">
-          <button class="btn orange-btn" type="submit">Button</button>
+          <button class="btn orange-btn" type="submit">submit</button>
      </div>
       </form>
       <Toaster/>

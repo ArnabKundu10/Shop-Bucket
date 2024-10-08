@@ -1,10 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "../css/navbar/nav.css"
 import { useAuth } from '../store/auth'
 import {Link, useNavigate} from "react-router-dom"
+import { checkAuth } from '../store/checked'
+import { Categories } from './categories'
 const Navbar = () => {
   const {token,setSignin,setToken,userdetails,count,}=useAuth();
+  const {checked,setChecked,checkedValues, setCheckedValues}=checkAuth();
   const navigate=useNavigate();
+  // const [isHovered, setIsHovered] = useState(false);
+  const visitCategory=(name)=>{
+    setChecked([name]); 
+    const obj={
+      [name]:true
+    }
+    setCheckedValues(obj);
+    localStorage.setItem('checkedValues', JSON.stringify(obj));
+    // console.log(checkedValues);
+    navigate("/category");
+  }
   return (
     <div className="navbox position-fixed d-md-flex justify-content-between pt-2 pb-2 w-100">
       <div className="navpart d-md-flex w-75">
@@ -21,15 +35,16 @@ const Navbar = () => {
       <div className="navpart w-25 text-center align-self-center">
        <ul className='d-md-flex justify-content-center text-decoration-none fs-5'>
        <li className="nav-item dropdown text-white me-5 align-self-center">
-          <Link className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <Link className="nav-link dropdown-toggle"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Categories
           </Link>
           <ul className="dropdown-menu">
-            <li><Link className="dropdown-item" href="#">Electronics</Link></li>
-            <li><hr className="dropdown-divider"/></li>
-            <li><Link className="dropdown-item" href="#">Dress</Link></li>
-            <li><hr className="dropdown-divider"/></li>
-            <li><Link className="dropdown-item" href="#">Something else here</Link></li>
+            {
+              Categories?.map((e)=>( 
+                <li onClick={()=>visitCategory(e.name)} key={e._id}><Link className="dropdown-item" >{e.name}</Link></li>
+                
+              ))
+            }
           </ul>
         </li>
         <li className='text-white me-5 align-self-center cursor-pointer' onClick={()=>navigate("/cart")}>
@@ -38,7 +53,7 @@ const Navbar = () => {
         </li>
         <li className='btn orange-btn border p-2 rounded align-self-center'>{token ?
         <>
-          <Link className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <Link className="nav-link dropdown-toggle"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <i /* onClick={()=>{setToken(localStorage.removeItem("token"))}} */ className="fa-solid fs-4 fa-user"></i>
           </Link>
           <ul className="dropdown-menu mt-4">
@@ -46,7 +61,7 @@ const Navbar = () => {
              <p className='text-white orange-bg fs-2 letter-logo rounded-circle'>{userdetails?userdetails.name.substring(0,1).toUpperCase():""}</p>
              <p className='orange fw-500 fs-5'>{userdetails?userdetails.name.toUpperCase():""}</p> 
             </div>
-            <li><Link className="dropdown-item">My Details</Link></li>
+            <li ><Link className="dropdown-item">My Details</Link></li>
             <li><hr className="dropdown-divider"/></li>
             <li><Link className="dropdown-item">My Dashboard</Link></li>
             <li><hr className="dropdown-divider"/></li>

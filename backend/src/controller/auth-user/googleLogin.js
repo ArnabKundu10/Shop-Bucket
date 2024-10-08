@@ -25,12 +25,12 @@ const googleLogin = async (req, res) => {
       user = await UserDetails.save();
     }
     const token = await user.generateAuthToken();
-    console.log(`my token is${token}`);
+    // console.log(`my token is${token}`);
     res.cookie("jwt", token, {
       expires: new Date(Date.now() + 6000000),
       httpOnly: true,
     });
-    console.log(user);
+    // console.log(user);
     res.status(201).send({
       msg: "Registration Successful",
       token: token,

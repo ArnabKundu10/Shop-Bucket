@@ -1,7 +1,7 @@
 import React from 'react'
 import "../css/navbar/nav.css"
 import "../css/admin/admin.css";
-import { Outlet,Link,Navigate } from 'react-router-dom'
+import { Outlet,Link} from 'react-router-dom'
 import { useAuth } from '../store/auth';
 const AdminPanel = () => {
    const {userdetails}=useAuth();

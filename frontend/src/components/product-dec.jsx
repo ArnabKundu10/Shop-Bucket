@@ -1,20 +1,39 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import {useNavigate } from 'react-router-dom';
 import { useAuth } from '../store/auth';
 
 import toast, { Toaster } from "react-hot-toast"
 // import axios from 'axios';
-const ProductDesc = ({item}) => {
+const ProductDesc = ({item,doubleWidth}) => {
    const priceOff=Math.ceil((item.sellingPrice - item.price)*100/(item.sellingPrice));
    const navigate=useNavigate();
    const {addCart}=useAuth();
-    
+   const widthSet=()=>{
+    if(doubleWidth==="double"){
+      return {
+     width:"30%",
+     height:"32vh"
+      }
+    }
+    else{
+      return {
+     width:"17%",
+      }
+    }
+   } 
+   const setVisibility=()=>{
+    if(doubleWidth==="double"){
+      return {
+     display:"none"
+      }
+    }
+   } 
   return (
-    <div className='col-md-2 m-4 prduct-struct rounded' onClick={(e)=>{e.preventDefault();navigate(`product/${item.productName}`,{state: {item,priceOff}})}}>
+    <div style={widthSet()} className='m-4 prduct-struct rounded' onClick={(e)=>{e.preventDefault();navigate(`/product/${item.productName}`,{state: {item,priceOff}})}}>
       <div className='img-cover'>
       <img src={item.productImage} alt="img" className='product-image rounded'/>
       </div>
-       <div className='p-4'>
+       <div style={setVisibility()} className='p-4'>
          <div className='d-flex justify-content-between opacity-less'>
           <p className='fw-bold'>
          {item.price} Rs.

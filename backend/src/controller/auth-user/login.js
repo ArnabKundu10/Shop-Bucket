@@ -6,7 +6,7 @@ const login = async (req, res) => {
     const findUser = await UserSchema.findOne({ email: email });
     if (findUser) {
       const passwordMatch = await bcryptjs.compare(password, findUser.password);
-      console.log(`check compare with ${findUser.password}`);
+      // console.log(`check compare with ${findUser.password}`);
       if (passwordMatch) {
         const token = await findUser.generateAuthToken();
         res.status(201).send({

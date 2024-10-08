@@ -1,6 +1,6 @@
 import axios from "axios";
 import { createContext,useContext,useEffect, useState } from "react";
-import toast, { Toaster } from "react-hot-toast"
+import toast from "react-hot-toast"
 export const AuthContext=createContext();
 export const AuthProvider=({children})=>{
    const [token, setToken] = useState(localStorage.getItem("token"));

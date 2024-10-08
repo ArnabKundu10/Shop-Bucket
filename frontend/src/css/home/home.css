@@ -32,6 +32,7 @@ height: 200px;
 }
 .prduct-struct{
    border: 2px solid #ff6a3d;
+   background-color: white;
 }
 .text-cut{
    text-decoration-line: line-through;
@@ -45,4 +46,7 @@ height: 200px;
 }
 .product-details{
    padding-top: 120px;
+}
+.bg-blackish{
+background-color: #1a2238;
 }

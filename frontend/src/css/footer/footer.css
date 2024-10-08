@@ -1,0 +1,15 @@
+.footer-container{
+   clear: both;
+   margin-top: 0%;
+background-color: black;
+padding: 5% 8% 5% 8%;
+}
+.footer-link{
+   text-decoration: none !important;
+   color: inherit !important;
+   font-weight: bold;
+   opacity: 0.8;
+}
+.footer-link:hover{
+   opacity: 1;
+}

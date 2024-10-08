@@ -19,6 +19,7 @@ const googleLogin = require("../controller/auth-user/googleLogin");
 const imageUpload = require("../controller/auth-product/image-upload");
 const customerDetails = require("../controller/auth-user/customerDetails");
 const productDetails = require("../controller/auth-product/product-details");
+const productFiltersController = require("../controller/auth-product/filter-product");
 const route = express.Router();
 
 // user setup
@@ -29,7 +30,8 @@ route.get("/customer/:id", customerDetails);
 
 // product setup
 route.get("/products", allProducts);
-route.get("product/:id", productDetails);
+route.get("/product/:id", productDetails);
+route.post("/product/filter", productFiltersController);
 
 // cart setup
 route.post("/add-to-cart", requireSignIn, addToCart);
