@@ -7,8 +7,12 @@ export const CheckProvider=({children})=>{
    const [checkedValues, setCheckedValues] = useState(
       () => JSON.parse(localStorage.getItem('checkedValues')) || {}
     );
+    const apiUrl = 
+  window.location.hostname === "localhost"
+    ? "http://localhost:3000"
+    : "https://shop-bucket.vercel.app";
    return (
-      <CheckContext.Provider value={{checked,setChecked,checkedValues, setCheckedValues}}>
+      <CheckContext.Provider value={{checked,setChecked,checkedValues, setCheckedValues,apiUrl}}>
          {children}
       </CheckContext.Provider>
    )

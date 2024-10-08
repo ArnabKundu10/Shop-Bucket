@@ -1,5 +1,5 @@
 import axios from "axios";
 const api = axios.create({
-  baseURL: "https://shop-bucket.vercel.app/auth",
+  baseURL: "http://localhost:3000/auth",
 });
 export const googleAuth = (code) => api.get(`/google?code=${code}`);

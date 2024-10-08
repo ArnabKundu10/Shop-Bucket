@@ -12,7 +12,7 @@ const Cart = () => {
 
   const fetchDetails=async()=>{
     try {
-      const response=await axios.get("https://shop-bucket.vercel.app/auth/view-items",
+      const response=await axios.get("http://localhost:3000/auth/view-items",
         {
           headers:{
           'Authorization':token,

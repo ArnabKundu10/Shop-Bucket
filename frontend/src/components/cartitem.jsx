@@ -11,7 +11,7 @@ const CartItem = ({element,setItems,totalprice,setTotalPrice,sellprice,setSellPr
      try {
       // console.log(element.productId._id,token);
       const response=await axios.post(
-         `https://shop-bucket.vercel.app/auth/delete-item`,{productId:element.productId},
+         `http://localhost:3000/auth/delete-item`,{productId:element.productId},
          {
            headers: {
              "Authorization":token,
@@ -33,7 +33,7 @@ const CartItem = ({element,setItems,totalprice,setTotalPrice,sellprice,setSellPr
       try {
          // console.log(element.productId._id,token);
          const response=await axios.post(
-            `https://shop-bucket.vercel.app/auth/dec-item`,{productId:element.productId,quantity:qty},
+            `http://localhost:3000/auth/dec-item`,{productId:element.productId,quantity:qty},
             {
               headers: {
                 "Authorization":token,
@@ -58,7 +58,7 @@ const CartItem = ({element,setItems,totalprice,setTotalPrice,sellprice,setSellPr
       try {
          // console.log(element.productId._id,token);
          const response=await axios.post(
-            `https://shop-bucket.vercel.app/auth/inc-item`,{productId:element.productId,quantity:qty},
+            `http://localhost:3000/auth/inc-item`,{productId:element.productId,quantity:qty},
             {
               headers: {
                 "Authorization":token,

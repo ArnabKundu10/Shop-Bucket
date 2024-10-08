@@ -30,12 +30,13 @@ const handleSubmit=async(e)=>{
       let formdata=new FormData();
       formdata.append("product",image);
       console.log(formdata);
-      const resp=await axios.post("https://shop-bucket.vercel.app/auth/image-upload",formdata);
+      const resp=await axios.post("http://localhost:3000/auth/image-upload",formdata);
 
       if(resp.data.success){
          const tempProduct=product;
          tempProduct.productImage=resp.data.image_url;
-         const response = await axios.post('https://shop-bucket.vercel.app/auth/products-upload', tempProduct);
+         const response = await axios.post('http://localhost:3000/auth/products-upload', tempProduct);
+         console.log(response);
          e.target.reset();
          setImage("");
          setProduct(

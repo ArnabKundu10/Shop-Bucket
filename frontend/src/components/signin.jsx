@@ -55,7 +55,7 @@ const SignIn = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        "https://shop-bucket.vercel.app/auth/register",
+        "http://localhost:3000/auth/register",
         {
           method: "POST",
           headers: {
@@ -98,7 +98,7 @@ const SignIn = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        "https://shop-bucket.vercel.app/auth/login",
+        "http://localhost:3000/auth/login",
         {
           method: "POST",
           headers: {

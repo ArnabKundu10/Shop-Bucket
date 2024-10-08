@@ -11,7 +11,6 @@ const apiUrl =
   process.env.NODE_ENV === "development"
     ? process.env.URL_LOCAL
     : process.env.URL_REMOTE;
-console.log(process.env);
 app.use(
   cors({
     origin: apiUrl,
@@ -25,5 +24,5 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/images", express.static("src/uploads"));
 app.use("/auth", route);
 app.listen(PORT, () => {
-  console.log("connected");
+  console.log(`connected:- ${PORT}`);
 });
