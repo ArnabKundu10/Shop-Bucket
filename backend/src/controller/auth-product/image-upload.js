@@ -1,5 +1,5 @@
 const apiUrl =
-  window.location.hostname === "localhost"
+  process.env.NODE_ENV === "development"
     ? process.env.URL_LOCAL
     : process.env.URL_REMOTE;
 const imageUpload = (req, res) => {

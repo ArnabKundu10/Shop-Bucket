@@ -11,6 +11,7 @@ const apiUrl =
   process.env.NODE_ENV === "development"
     ? process.env.URL_LOCAL
     : process.env.URL_REMOTE;
+console.log(process.env);
 app.use(
   cors({
     origin: apiUrl,
