@@ -3,10 +3,10 @@ import react from "@vitejs/plugin-react";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
   build: {
     rollupOptions: {
       external: ["antd"], // Add antd to the external list if needed
     },
   },
+  plugins: [react()],
 });
