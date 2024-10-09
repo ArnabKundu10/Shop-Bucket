@@ -15,10 +15,14 @@ const Home = () => {
   const latestCameras=allproducts?.filter((elem)=>elem?.category?.toUpperCase() ==="CAMERA").slice(-4).reverse();
   const latestMobiles=allproducts?.filter((elem)=>elem?.category?.toUpperCase() ==="MOBILE").slice(-4).reverse();
   const latestWatches=allproducts?.filter((elem)=>elem?.category?.toUpperCase() ==="WATCH").slice(-4).reverse();
+  const apiUrl = 
+  window.location.hostname === "localhost"
+    ? "http://localhost:3000"
+    : "https://shop-bucket.vercel.app";
   useEffect(()=>{
     const fetchDetails=async()=>{
       try {
-        const response=await axios.get("https://shop-bucket.vercel.app/auth/products");
+        const response=await axios.get(`${apiUrl}/auth/products`);
         setProduct(response.data.data); 
       } catch (error) {
         console.log(error)

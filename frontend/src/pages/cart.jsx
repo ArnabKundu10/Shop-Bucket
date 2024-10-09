@@ -9,10 +9,13 @@ const Cart = () => {
   const {token}=useAuth();
   const [totalprice,setTotalPrice]=useState(0);
   const [sellprice,setSellPrice]=useState(0);
-
+  const apiUrl = 
+  window.location.hostname === "localhost"
+    ? "http://localhost:3000"
+    : "https://shop-bucket.vercel.app";
   const fetchDetails=async()=>{
     try {
-      const response=await axios.get("https://shop-bucket.vercel.app/auth/view-items",
+      const response=await axios.get(`${apiUrl}/auth/view-items`,
         {
           headers:{
           'Authorization':token,

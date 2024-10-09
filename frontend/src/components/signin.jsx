@@ -16,6 +16,10 @@ const SignIn = () => {
     email: "",
     password: ""
   });
+  const apiUrl = 
+  window.location.hostname === "localhost"
+    ? "http://localhost:3000"
+    : "https://shop-bucket.vercel.app";
   const responseGoogle = async (authResult)=>{
     try{
     if(authResult['code']){
@@ -55,7 +59,7 @@ const SignIn = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        "https://shop-bucket.vercel.app/auth/register",
+        `${apiUrl}/auth/register`,
         {
           method: "POST",
           headers: {
@@ -98,7 +102,7 @@ const SignIn = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        "https://shop-bucket.vercel.app/auth/login",
+        `${apiUrl}/auth/login`,
         {
           method: "POST",
           headers: {

@@ -12,6 +12,12 @@ const [product,setProduct]=useState({
     sellingPrice: ""
    });
    const [image,setImage]=useState("");
+   const apiUrl = 
+   window.location.hostname === "localhost"
+     ? "http://localhost:3000"
+     : "https://shop-bucket.vercel.app";
+
+
    const imageUpload=(e)=>{
       setImage(e.target.files[0]);
    }
@@ -29,13 +35,13 @@ const handleSubmit=async(e)=>{
       e.preventDefault();
       let formdata=new FormData();
       formdata.append("product",image);
-      console.log("formdata",formdata);
-      const resp=await axios.post("https://shop-bucket.vercel.app/auth/image-upload",formdata);
+      // console.log("formdata",formdata);
+      const resp=await axios.post(`${apiUrl}/auth/image-upload`,formdata);
        console.log("response:-",resp);
       if(resp.data.success){
          const tempProduct=product;
          tempProduct.productImage=resp.data.image_url;
-         const response = await axios.post('https://shop-bucket.vercel.app/auth/products-upload', tempProduct);
+         const response = await axios.post(`${apiUrl}/auth/products-upload`, tempProduct);
          console.log(response);
          e.target.reset();
          setImage("");

@@ -13,6 +13,10 @@ const Category = () => {
   const [products, setProducts] = useState([]);
    const {checked,setChecked,checkedValues, setCheckedValues}=checkAuth();
    const [radio, setRadio] = useState([]);
+   const apiUrl = 
+   window.location.hostname === "localhost"
+     ? "http://localhost:3000"
+     : "https://shop-bucket.vercel.app";
 
   const handleFilter = (value, name) => {
     let all = [...checked];
@@ -42,7 +46,7 @@ const Category = () => {
   //get filterd product
   const filterProduct = async () => {
     try {
-      const { data } = await axios.post("https://shop-bucket.vercel.app/auth/product/filter", {
+      const { data } = await axios.post(`${apiUrl}/auth/product/filter`, {
         checked,
         radio,
       });

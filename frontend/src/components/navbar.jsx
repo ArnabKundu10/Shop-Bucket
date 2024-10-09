@@ -6,7 +6,7 @@ import { checkAuth } from '../store/checked'
 import { Categories } from './categories'
 const Navbar = () => {
   const {token,setSignin,setToken,userdetails,count,}=useAuth();
-  const {checked,setChecked,checkedValues, setCheckedValues}=checkAuth();
+  const {setChecked, setCheckedValues}=checkAuth();
   const navigate=useNavigate();
   // const [isHovered, setIsHovered] = useState(false);
   const visitCategory=(name)=>{

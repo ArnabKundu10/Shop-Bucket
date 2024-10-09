@@ -5,13 +5,17 @@ const CartItem = ({element,setItems,totalprice,setTotalPrice,sellprice,setSellPr
    let item=element.productId;
    let tp=totalprice;
    const {token,count,setCount}=useAuth();
+   const apiUrl = 
+   window.location.hostname === "localhost"
+     ? "http://localhost:3000"
+     : "https://shop-bucket.vercel.app";
    const priceOff=Math.ceil((item.sellingPrice - item.price)*100/(item.sellingPrice));
    const[qty,setQty]=useState(element.quantity);
    const deleteItem=async()=>{
      try {
       // console.log(element.productId._id,token);
       const response=await axios.post(
-         `https://shop-bucket.vercel.app/auth/delete-item`,{productId:element.productId},
+         `${apiUrl}/auth/delete-item`,{productId:element.productId},
          {
            headers: {
              "Authorization":token,
@@ -33,7 +37,7 @@ const CartItem = ({element,setItems,totalprice,setTotalPrice,sellprice,setSellPr
       try {
          // console.log(element.productId._id,token);
          const response=await axios.post(
-            `https://shop-bucket.vercel.app/auth/dec-item`,{productId:element.productId,quantity:qty},
+            `${apiUrl}/auth/dec-item`,{productId:element.productId,quantity:qty},
             {
               headers: {
                 "Authorization":token,
@@ -58,7 +62,7 @@ const CartItem = ({element,setItems,totalprice,setTotalPrice,sellprice,setSellPr
       try {
          // console.log(element.productId._id,token);
          const response=await axios.post(
-            `https://shop-bucket.vercel.app/auth/inc-item`,{productId:element.productId,quantity:qty},
+            `${apiUrl}/auth/inc-item`,{productId:element.productId,quantity:qty},
             {
               headers: {
                 "Authorization":token,

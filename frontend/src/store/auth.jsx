@@ -12,10 +12,14 @@ export const AuthProvider=({children})=>{
       role:""
    })
    const[count,setCount]=useState(0);
+   const apiUrl = 
+   window.location.hostname === "localhost"
+     ? "http://localhost:3000"
+     : "https://shop-bucket.vercel.app";
    const fetchCount=async()=>{
       try {
          const response = await axios.get(
-            `https://shop-bucket.vercel.app/auth/count-items`,
+            `${apiUrl}/auth/count-items`,
             {
               headers: {
                 "Authorization":token,
@@ -37,7 +41,7 @@ export const AuthProvider=({children})=>{
       const fetchDetails=async()=>{
          try {
             const response = await fetch(
-               `https://shop-bucket.vercel.app/auth/customer/${userid}`,
+               `${apiUrl}/auth/customer/${userid}`,
                {
                  method: "GET",
                  headers: {
@@ -63,7 +67,7 @@ export const AuthProvider=({children})=>{
           e.preventDefault();
           e.stopPropagation();
           const response=await axios.post(
-             `https://shop-bucket.vercel.app/auth/add-to-cart`,{productId:item._id},
+             `${apiUrl}/auth/add-to-cart`,{productId:item._id},
              {
                headers: {
                  "Authorization":token,
