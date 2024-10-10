@@ -82,7 +82,7 @@ route.post("/product-update");
 // route.post("/image-upload", upload.single("product"), imageUpload);
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "./src/uploads");
+    cb(null, path.join(__dirname, "../uploads"));
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname);
@@ -98,7 +98,7 @@ route.post("/image-upload", upload.single("product"), function (req, res) {
     if (err) {
       console.log(err);
       return res.status(500).json({
-        success: false,
+        success: 0,
         message: "Error",
       });
     }

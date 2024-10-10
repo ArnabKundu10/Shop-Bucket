@@ -36,16 +36,15 @@ const handleSubmit=async(e)=>{
       let formdata=new FormData();
       formdata.append("product",image);
       console.log("formdata:-",formdata);
-      `${apiUrl}/auth/image-upload`
-      const responsedata = await fetch('/api/fileupload/upload', {
+      const responsedata = await fetch(`${apiUrl}/auth/image-upload`, {
          method: 'POST',
          body: formdata 
        });
        const resp = await responsedata.json();
        console.log("response:-",resp);
-      if(resp.data.success){
+      if(resp.success){
          const tempProduct=product;
-         tempProduct.productImage=resp.data.image_url;
+         tempProduct.productImage=resp.image_url;
          const response = await axios.post(`${apiUrl}/auth/products-upload`, tempProduct);
          console.log(response);
          e.target.reset();
@@ -61,6 +60,7 @@ const handleSubmit=async(e)=>{
                sellingPrice: ""
             }
          )
+         
       }
       toast.success("Product is added");
    } catch (error) {
