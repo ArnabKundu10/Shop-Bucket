@@ -81,6 +81,9 @@ route.post("/product-update");
 
 // route.post("/image-upload", upload.single("product"), imageUpload);
 const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./src/uploads");
+  },
   filename: function (req, file, cb) {
     cb(null, file.originalname);
   },
