@@ -19,8 +19,8 @@ const imageUpload = require("../controller/auth-product/image-upload");
 const customerDetails = require("../controller/auth-user/customerDetails");
 const productDetails = require("../controller/auth-product/product-details");
 const productFiltersController = require("../controller/auth-product/filter-product");
+const cloudinary = require("../utils/cloudinary");
 const route = express.Router();
-
 // user setup
 route.get("/google", googleLogin);
 route.post("/register", register);
@@ -50,35 +50,65 @@ route.post("/product-update");
 
 // image upload
 
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, "src/uploads");
+//   },
+//   filename: (req, file, cb) => {
+//     return cb(
+//       null,
+//       `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`
+//     );
+//   },
+// });
+
+// const upload = multer({
+//   fileFilter: (req, file, cb) => {
+//     if (
+//       file.mimetype == "image/png" ||
+//       file.mimetype == "image/jpg" ||
+//       file.mimetype == "image/jpeg" ||
+//       file.mimetype == "image/webp"
+//     ) {
+//       cb(null, true);
+//     } else {
+//       cb(null, false);
+//       return cb(new Error("Only .png, .jpg and .jpeg format allowed!"));
+//     }
+//   },
+//   storage: storage,
+// });
+
+// route.post("/image-upload", upload.single("product"), imageUpload);
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "src/uploads");
   },
-  filename: (req, file, cb) => {
-    return cb(
-      null,
-      `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`
-    );
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
   },
 });
-
-const upload = multer({
-  fileFilter: (req, file, cb) => {
-    if (
-      file.mimetype == "image/png" ||
-      file.mimetype == "image/jpg" ||
-      file.mimetype == "image/jpeg" ||
-      file.mimetype == "image/webp"
-    ) {
-      cb(null, true);
-    } else {
-      cb(null, false);
-      return cb(new Error("Only .png, .jpg and .jpeg format allowed!"));
+const url =
+  process.env.NODE_ENV === "development"
+    ? process.env.URL_LOCAL
+    : process.env.URL_REMOTE;
+const upload = multer({ storage: storage });
+route.post("/image-upload", upload.single("product"), function (req, res) {
+  cloudinary.uploader.upload(req.file.path, function (err, result) {
+    if (err) {
+      console.log(err);
+      return res.status(500).json({
+        success: false,
+        message: "Error",
+      });
     }
-  },
-  storage: storage,
+    console.log(result);
+    res.status(200).json({
+      success: true,
+      message: "Uploaded!",
+      image_url: result.url,
+    });
+  });
 });
-
-route.post("/image-upload", upload.single("product"), imageUpload);
 
 module.exports = route;

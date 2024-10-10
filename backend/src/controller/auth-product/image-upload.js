@@ -5,7 +5,7 @@ const url =
 const imageUpload = (req, res) => {
   try {
     const imageURL = `${url}/images/${req.file.filename}`;
-    console.log(imageURL);
+    console.log(req.file);
     res.json({
       success: 1,
       image_url: imageURL,
