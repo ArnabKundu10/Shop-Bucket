@@ -81,17 +81,11 @@ route.post("/product-update");
 
 // route.post("/image-upload", upload.single("product"), imageUpload);
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, "../uploads"));
-  },
   filename: function (req, file, cb) {
     cb(null, file.originalname);
   },
 });
-const url =
-  process.env.NODE_ENV === "development"
-    ? process.env.URL_LOCAL
-    : process.env.URL_REMOTE;
+
 const upload = multer({ storage: storage });
 route.post("/image-upload", upload.single("product"), function (req, res) {
   cloudinary.uploader.upload(req.file.path, function (err, result) {
