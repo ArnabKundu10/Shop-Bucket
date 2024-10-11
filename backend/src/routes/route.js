@@ -20,6 +20,7 @@ const customerDetails = require("../controller/auth-user/customerDetails");
 const productDetails = require("../controller/auth-product/product-details");
 const productFiltersController = require("../controller/auth-product/filter-product");
 const cloudinary = require("../utils/cloudinary");
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const route = express.Router();
 // user setup
 route.get("/google", googleLogin);
@@ -80,35 +81,28 @@ route.post("/product-update");
 // });
 
 // route.post("/image-upload", upload.single("product"), imageUpload);
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "src/uploads");
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
-  },
-});
-const url =
-  process.env.NODE_ENV === "development"
-    ? process.env.URL_LOCAL
-    : process.env.URL_REMOTE;
-const upload = multer({ storage: storage });
-route.post("/image-upload", upload.single("product"), function (req, res) {
-  cloudinary.uploader.upload(req.file.path, function (err, result) {
-    if (err) {
-      console.log(err);
-      return res.status(500).json({
-        success: false,
-        message: "Error",
-      });
-    }
-    console.log(result);
-    res.status(200).json({
-      success: true,
-      message: "Uploaded!",
-      image_url: result.url,
-    });
-  });
-});
 
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    public_id: (req, file) => file.originalname.split(".")[0] + "",
+  },
+});
+const upload = multer({ storage: storage });
+
+const imageupload = (req, res) => {
+  try {
+    console.log(req.file);
+    res.json({
+      success: 1,
+      image_url: req?.file?.path,
+    });
+  } catch (error) {
+    res.json({
+      success: 0,
+      error: error,
+    });
+  }
+};
+route.post("/image-upload", upload.single("product"), imageupload);
 module.exports = route;
