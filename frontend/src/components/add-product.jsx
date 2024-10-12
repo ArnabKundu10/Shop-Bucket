@@ -20,6 +20,7 @@ const [product,setProduct]=useState({
 
    const imageUpload=(e)=>{
       setImage(e.target.files[0]);
+      // console.log(image);
    }
 const handleChange=(e)=>{
    try {
@@ -35,7 +36,6 @@ const handleSubmit=async(e)=>{
       e.preventDefault();
       let formdata=new FormData();
       formdata.append("product",image);
-      formdata.append("upload_preset","mern_product");
       console.log("formdata:-",formdata);
       const resp = await axios.post(`${apiUrl}/auth/image-upload`, formdata);
        console.log("response:-",resp);
