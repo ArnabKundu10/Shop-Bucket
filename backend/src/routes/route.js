@@ -92,7 +92,6 @@ try {
   upload = multer({ storage: storage });
 } catch (err) {
   console.error("Error during multer setup:", err);
-  // Handle this as appropriate for your application, e.g., by sending an error response
 }
 
 route.post(
