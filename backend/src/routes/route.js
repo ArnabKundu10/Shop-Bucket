@@ -1,5 +1,6 @@
 const express = require("express");
 const multer = require("multer");
+const streamifier = require("streamifier");
 const path = require("path");
 const register = require("../controller/auth-user/register");
 const login = require("../controller/auth-user/login");
@@ -80,27 +81,48 @@ route.post("/product-update");
 // });
 
 // route.post("/image-upload", upload.single("product"), imageUpload);
-let upload;
+// let upload;
 
-try {
-  const storage = multer.diskStorage({
-    filename: function (req, file, cb) {
-      cb(null, file.originalname);
-    },
+// try {
+//   const storage = multer.diskStorage({
+//     filename: function (req, file, cb) {
+//       cb(
+//         null,
+//         `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`
+//       );
+//     },
+//   });
+
+//   upload = multer({ storage: storage });
+// } catch (err) {
+//   console.error("Error during multer setup:", err);
+//   res.status(500).json({
+//     success: 0,
+//     message: err,
+//   });
+// }
+const storage = multer.memoryStorage(); // Use memory storage for serverless environments
+const upload = multer({ storage: storage });
+const uploadStream = (req) => {
+  return new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream((error, result) => {
+      if (result) {
+        resolve(result);
+      } else {
+        reject(error);
+      }
+    });
+    streamifier.createReadStream(req.file.buffer).pipe(stream);
   });
-
-  upload = multer({ storage: storage });
-} catch (err) {
-  console.error("Error during multer setup:", err);
-}
+};
 
 route.post(
   "/image-upload",
   upload.single("product"),
   async function (req, res) {
     try {
-      const result = await cloudinary.uploader.upload(req.file.path);
-      console.log(result);
+      const result = await uploadStream(req);
+      console.log("result:-", result);
       res.status(200).json({
         success: true,
         message: "Uploaded!",
