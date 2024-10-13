@@ -91,7 +91,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 route.post("/image-upload", upload.single("product"), function (req, res) {
-  cloudinary.uploader.upload(req.file.filename, function (err, result) {
+  cloudinary.uploader.upload(req?.file?.path, function (err, result) {
     if (err) {
       console.log(err);
       return res.status(500).json({
