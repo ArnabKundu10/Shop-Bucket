@@ -80,21 +80,32 @@ route.post("/product-update");
 // });
 
 // route.post("/image-upload", upload.single("product"), imageUpload);
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, "src/uploads");
+//   },
+//   filename: function (req, file, cb) {
+//     cb(null, file.originalname);
+//   },
+// });
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "src/uploads");
+  destination: function (req, file, cb) {
+    cb(null, "src/my-uploads");
   },
   filename: function (req, file, cb) {
-    cb(null, file.originalname);
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(null, file.fieldname + "-" + uniqueSuffix);
   },
 });
+
+// const upload = multer({ storage: storage })
 
 const upload = multer({ storage: storage });
 route.post("/image-upload", upload.single("product"), function (req, res) {
   cloudinary.uploader.upload(req?.file?.path, function (err, result) {
     if (err) {
-      console.log(err);
-      return res.status(500).json({
+      console.log("ONE", err);
+      return res.status(404).json({
         success: 0,
         message: "Error",
       });

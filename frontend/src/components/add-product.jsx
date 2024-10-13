@@ -37,8 +37,7 @@ const handleSubmit=async(e)=>{
       formdata.append("product",image);
       // formdata.append("upload_preset","mern_product");
       console.log("formdata:-",formdata);
-      const resp=await axios.post(`${apiUrl}/auth/image-upload`, formdata,
-         {headers:{"Content-Type" : "application/json"}});
+      const resp=await axios.post(`${apiUrl}/auth/image-upload`, formdata);
        console.log("response:-",resp);
       if(resp?.data?.success){
          const tempProduct=product;
