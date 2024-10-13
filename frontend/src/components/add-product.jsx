@@ -45,7 +45,7 @@ const handleSubmit=async(e)=>{
          console.log(error.response);
        })
        console.log("response:-",resp);
-      if(resp.data.success){
+      if(resp?.data?.success){
          const tempProduct=product;
          tempProduct.productImage=resp.data.image_url;
          const response = await axios.post(`${apiUrl}/auth/products-upload`, tempProduct);
@@ -63,9 +63,9 @@ const handleSubmit=async(e)=>{
                sellingPrice: ""
             }
          )
-         
+         toast.success("Product is added");  
       }
-      toast.success("Product is added");
+      
    } catch (error) {
       console.log(error);
        toast.error(error.message);
