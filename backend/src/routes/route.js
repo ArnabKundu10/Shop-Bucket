@@ -92,10 +92,11 @@ const upload = multer({ storage: storage });
 
 const imageupload = (req, res) => {
   try {
-    console.log(req.file);
+    console.log(req?.file);
     res.json({
       success: 1,
-      image_url: req?.file?.path,
+      // image_url: req?.file?.path,
+      image_url: "img.jpg",
     });
   } catch (error) {
     res.json({
