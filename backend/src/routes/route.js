@@ -89,9 +89,6 @@ route.post("/product-update");
 //   },
 // });
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "src/uploads");
-  },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
     cb(null, file.fieldname + "-" + uniqueSuffix + ".jpg");
@@ -114,11 +111,7 @@ route.post("/image-upload", upload.single("product"), function (req, res) {
         message: "Error",
       });
     }
-    fs.unlink(req.file.path, (err) => {
-      if (err) {
-        console.error("Error deleting local file: ", err);
-      }
-    });
+
     res.status(200).json({
       success: true,
       message: "Uploaded!",
