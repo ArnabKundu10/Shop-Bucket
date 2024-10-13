@@ -34,34 +34,56 @@ export const AuthProvider=({children})=>{
          console.log(error);
       }
    }
-   useEffect(()=>{
-      if(token){
-         setSignin({display:"none"}) ;
-      }
-      const fetchDetails=async()=>{
-         try {
-            const response = await fetch(
-               `${apiUrl}/auth/customer/${userid}`,
-               {
-                 method: "GET",
-                 headers: {
-                   "Content-Type": "application/json",
-                   credentials: "include",
-                 }
-               }
-             ); 
-             if(response.ok){
-               const userinfos=await response.json();
-               setUserdetails(userinfos.user);  
-               console.log(userinfos);  
-             }
-         } catch (error) {
-            console.log(error);
+   // useEffect(()=>{
+   //    if(token){
+   //       setSignin({display:"none"}) ;
+   //    }
+   //    const fetchDetails=async()=>{
+   //       try {
+   //          const response = await fetch(
+   //             `${apiUrl}/auth/customer/${userid}`,
+   //             {
+   //               method: "GET",
+   //               headers: {
+   //                 "Content-Type": "application/json",
+   //                 credentials: "include",
+   //               }
+   //             }
+   //           ); 
+   //           if(response.ok){
+   //             const userinfos=await response.json();
+   //             setUserdetails(userinfos.user);  
+   //             console.log(userinfos);  
+   //           }
+   //       } catch (error) {
+   //          console.log(error);
+   //       }
+   //    }
+   //    fetchDetails();
+   //    token?fetchCount():setCount(0);
+   //    },[token]);
+      useEffect(() => {
+         if (token) {
+           setSignin({ display: "none" })
          }
-      }
-      fetchDetails();
-      token?fetchCount():setCount(0);
-      },[token]);
+         const fetchDetails = async () => {
+           try {
+             const response = await axios.get(`${apiUrl}/auth/customer/${userid}`, {
+               headers: {
+                 "Content-Type": "application/json"
+               },
+               withCredentials: true
+             })
+             if (response.status === 200) {
+               setUserdetails(response.data.user)
+             }
+           } catch (error) {
+             console.log("Error fetching user details:", error)
+           }
+         }
+         fetchDetails()
+         token ? fetchCount() : setCount(0)
+       }, [token])
       const addCart=async(e,item)=>{
          try {
           e.preventDefault();

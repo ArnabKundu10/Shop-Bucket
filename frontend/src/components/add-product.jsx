@@ -34,11 +34,11 @@ const handleChange=(e)=>{
 const handleSubmit=async(e)=>{
    try {
       e.preventDefault();
-      let formdata=new FormData();
+      const formdata=new FormData();
       formdata.append("product",image);
       console.log("formdata:-",formdata);
       const resp = await axios.post(`${apiUrl}/auth/image-upload`, formdata);
-       console.log("response:-",resp);
+      console.log("response:-",resp);
       if(resp.data.success){
          const tempProduct=product;
          tempProduct.productImage=resp.data.image_url;
