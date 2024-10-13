@@ -94,31 +94,37 @@ const storage = multer.diskStorage({
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, file.fieldname + "-" + uniqueSuffix);
+    cb(null, file.fieldname + "-" + uniqueSuffix + ".jpg");
   },
 });
 
-// const upload = multer({ storage: storage })
-
 const upload = multer({ storage: storage });
 route.post("/image-upload", upload.single("product"), function (req, res) {
-  console.log("Arnab:-", req, res);
+  if (!req.file) {
+    return res.status(400).json({
+      success: 0,
+      message: "No file uploaded!",
+    });
+  }
 
-  // cloudinary.uploader.upload(req?.file?.path, function (err, result) {
-  //   if (err) {
-  //     console.log("ONE", err);
-  //     return res.status(404).json({
-  //       success: 0,
-  //       message: "Error",
-  //     });
-  //   }
-  //   console.log(result);
-  //   res.status(200).json({
-  //     success: true,
-  //     message: "Uploaded!",
-  //     image_url: result.url,
-  //   });
-  // });
+  cloudinary.uploader.upload(req.file.path, function (err, result) {
+    if (err) {
+      return res.status(500).json({
+        success: 0,
+        message: "Error",
+      });
+    }
+    fs.unlink(req.file.path, (err) => {
+      if (err) {
+        console.error("Error deleting local file: ", err);
+      }
+    });
+    res.status(200).json({
+      success: true,
+      message: "Uploaded!",
+      image_url: result.url,
+    });
+  });
 });
 
 module.exports = route;
