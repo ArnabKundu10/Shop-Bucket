@@ -36,7 +36,13 @@ const handleSubmit=async(e)=>{
       let formdata=new FormData();
       formdata.append("product",image);
       // console.log("formdata",formdata);
-      const resp=await axios.post(`${apiUrl}/auth/image-upload`,formdata);
+      const resp = await axios.post(`${apiUrl}/auth/image-upload`, formdata,
+         {headers:{"Content-Type" : "application/json"}})
+      .then(function(response) {
+         console.log(response);
+       }).catch(function(error) {
+         console.log(error.response);
+       })
        console.log("response:-",resp);
       if(resp.data.success){
          const tempProduct=product;
