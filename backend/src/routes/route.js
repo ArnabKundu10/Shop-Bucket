@@ -90,7 +90,7 @@ route.post("/product-update");
 // });
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "src/my-uploads");
+    cb(null, "src/uploads");
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
@@ -102,21 +102,23 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 route.post("/image-upload", upload.single("product"), function (req, res) {
-  cloudinary.uploader.upload(req?.file?.path, function (err, result) {
-    if (err) {
-      console.log("ONE", err);
-      return res.status(404).json({
-        success: 0,
-        message: "Error",
-      });
-    }
-    console.log(result);
-    res.status(200).json({
-      success: true,
-      message: "Uploaded!",
-      image_url: result.url,
-    });
-  });
+  console.log("Arnab:-", req, res);
+
+  // cloudinary.uploader.upload(req?.file?.path, function (err, result) {
+  //   if (err) {
+  //     console.log("ONE", err);
+  //     return res.status(404).json({
+  //       success: 0,
+  //       message: "Error",
+  //     });
+  //   }
+  //   console.log(result);
+  //   res.status(200).json({
+  //     success: true,
+  //     message: "Uploaded!",
+  //     image_url: result.url,
+  //   });
+  // });
 });
 
 module.exports = route;

@@ -9,6 +9,8 @@ const customerDetails = async (req, res) => {
       user: customer,
     });
   } catch (error) {
+    console.log("ONE");
+
     res.status(500).send(error);
   }
 };
