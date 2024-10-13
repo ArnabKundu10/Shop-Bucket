@@ -95,8 +95,8 @@ const imageupload = (req, res) => {
     console.log(req?.file);
     res.json({
       success: 1,
-      // image_url: req?.file?.path,
-      image_url: "img.jpg",
+      image_url: req?.file?.path,
+      // image_url: "img.jpg",
     });
   } catch (error) {
     res.json({
