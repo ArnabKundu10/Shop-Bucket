@@ -1,7 +1,7 @@
 const url =
   process.env.NODE_ENV === "development"
-    ? process.env.URL_LOCAL
-    : process.env.URL_REMOTE;
+    ? "http://localhost:3000"
+    : "https://shop-bucket.vercel.app";
 const imageUpload = (req, res) => {
   try {
     const imageURL = `${url}/images/${req.file.filename}`;
