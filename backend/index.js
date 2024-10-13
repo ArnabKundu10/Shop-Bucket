@@ -8,12 +8,20 @@ const DBconnect = require("./src/connection/db");
 DBconnect();
 const PORT = process.env.PORT || 3000;
 // const apiUrl = process.env.URL_REMOTE;
+// app.use(
+//   cors({
+//     origin:
+//       process.env.NODE_ENV === "development"
+//         ? process.env.URL_LOCAL
+//         : process.env.URL_REMOTE,
+//     methods: "GET,POST,PUT,DELETE",
+//     credentials: true,
+//   })
+// );
+
 app.use(
   cors({
-    origin:
-      process.env.NODE_ENV === "development"
-        ? process.env.URL_LOCAL
-        : process.env.URL_REMOTE,
+    origin: "*",
     methods: "GET,POST,PUT,DELETE",
     credentials: true,
   })
