@@ -42,7 +42,7 @@ const handleSubmit=async(e)=>{
       .then(function(response) {
          console.log(response);
        }).catch(function(error) {
-         console.log(error.response.data);
+         console.log(error.response);
        })
        console.log("response:-",resp);
       if(resp.data.success){
