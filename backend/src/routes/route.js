@@ -88,45 +88,45 @@ route.post("/image-upload", upload.single("product"), imageUpload);
 //     cb(null, file.originalname);
 //   },
 // });
-try {
-  const storage = multer.diskStorage({
-    filename: function (req, file, cb) {
-      const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-      cb(null, file.fieldname + "-" + uniqueSuffix + ".jpg");
-    },
-  });
+// try {
+//   const storage = multer.diskStorage({
+//     filename: function (req, file, cb) {
+//       const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+//       cb(null, file.fieldname + "-" + uniqueSuffix + ".jpg");
+//     },
+//   });
 
-  const upload = multer({ storage: storage });
+//   const upload = multer({ storage: storage });
 
-  route.post("/image-upload", upload.single("product"), function (req, res) {
-    if (!req.file) {
-      return res.status(400).json({
-        success: 0,
-        message: "No file uploaded!",
-      });
-    }
+//   route.post("/image-upload", upload.single("product"), function (req, res) {
+//     if (!req.file) {
+//       return res.status(400).json({
+//         success: 0,
+//         message: "No file uploaded!",
+//       });
+//     }
 
-    cloudinary.uploader.upload(req.file.path, function (err, result) {
-      if (err) {
-        return res.status(500).json({
-          success: 0,
-          message: "Error",
-        });
-      }
+//     cloudinary.uploader.upload(req.file.path, function (err, result) {
+//       if (err) {
+//         return res.status(500).json({
+//           success: 0,
+//           message: "Error",
+//         });
+//       }
 
-      res.status(200).json({
-        success: true,
-        message: "Uploaded!",
-        image_url: result.url,
-      });
-    });
-  });
-} catch (error) {
-  console.log("error here", error);
-  res.status(501).json({
-    success: 0,
-    message: error,
-  });
-}
+//       res.status(200).json({
+//         success: true,
+//         message: "Uploaded!",
+//         image_url: result.url,
+//       });
+//     });
+//   });
+// } catch (error) {
+//   console.log("error here", error);
+//   res.status(501).json({
+//     success: 0,
+//     message: error,
+//   });
+// }
 
 module.exports = route;
