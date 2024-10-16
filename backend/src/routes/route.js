@@ -50,36 +50,36 @@ route.post("/product-update");
 
 // image upload
 
-// const storage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, "src/uploads");
-//   },
-//   filename: (req, file, cb) => {
-//     return cb(
-//       null,
-//       `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`
-//     );
-//   },
-// });
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "src/uploads");
+  },
+  filename: (req, file, cb) => {
+    return cb(
+      null,
+      `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`
+    );
+  },
+});
 
-// const upload = multer({
-//   fileFilter: (req, file, cb) => {
-//     if (
-//       file.mimetype == "image/png" ||
-//       file.mimetype == "image/jpg" ||
-//       file.mimetype == "image/jpeg" ||
-//       file.mimetype == "image/webp"
-//     ) {
-//       cb(null, true);
-//     } else {
-//       cb(null, false);
-//       return cb(new Error("Only .png, .jpg and .jpeg format allowed!"));
-//     }
-//   },
-//   storage: storage,
-// });
+const upload = multer({
+  fileFilter: (req, file, cb) => {
+    if (
+      file.mimetype == "image/png" ||
+      file.mimetype == "image/jpg" ||
+      file.mimetype == "image/jpeg" ||
+      file.mimetype == "image/webp"
+    ) {
+      cb(null, true);
+    } else {
+      cb(null, false);
+      return cb(new Error("Only .png, .jpg and .jpeg format allowed!"));
+    }
+  },
+  storage: storage,
+});
 
-// route.post("/image-upload", upload.single("product"), imageUpload);
+route.post("/image-upload", upload.single("product"), imageUpload);
 // const storage = multer.diskStorage({
 //   destination: (req, file, cb) => {
 //     cb(null, "src/uploads");

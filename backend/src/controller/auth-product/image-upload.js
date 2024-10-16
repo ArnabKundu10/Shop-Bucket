@@ -11,6 +11,7 @@ const imageUpload = (req, res) => {
       image_url: imageURL,
     });
   } catch (error) {
+    console.log("error here");
     res.json({
       success: 0,
       error: error,
