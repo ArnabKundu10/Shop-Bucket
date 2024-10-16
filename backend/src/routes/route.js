@@ -88,36 +88,45 @@ route.post("/product-update");
 //     cb(null, file.originalname);
 //   },
 // });
-const storage = multer.diskStorage({
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, file.fieldname + "-" + uniqueSuffix + ".jpg");
-  },
-});
+try {
+  const storage = multer.diskStorage({
+    filename: function (req, file, cb) {
+      const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+      cb(null, file.fieldname + "-" + uniqueSuffix + ".jpg");
+    },
+  });
 
-const upload = multer({ storage: storage });
-route.post("/image-upload", upload.single("product"), function (req, res) {
-  if (!req.file) {
-    return res.status(400).json({
-      success: 0,
-      message: "No file uploaded!",
-    });
-  }
+  const upload = multer({ storage: storage });
 
-  cloudinary.uploader.upload(req.file.path, function (err, result) {
-    if (err) {
-      return res.status(500).json({
+  route.post("/image-upload", upload.single("product"), function (req, res) {
+    if (!req.file) {
+      return res.status(400).json({
         success: 0,
-        message: "Error",
+        message: "No file uploaded!",
       });
     }
 
-    res.status(200).json({
-      success: true,
-      message: "Uploaded!",
-      image_url: result.url,
+    cloudinary.uploader.upload(req.file.path, function (err, result) {
+      if (err) {
+        return res.status(500).json({
+          success: 0,
+          message: "Error",
+        });
+      }
+
+      res.status(200).json({
+        success: true,
+        message: "Uploaded!",
+        image_url: result.url,
+      });
     });
   });
-});
+} catch (error) {
+  console.log("error here", error);
+  res.status(501).json({
+    success: 0,
+    message: error,
+  });
+}
 
 module.exports = route;
