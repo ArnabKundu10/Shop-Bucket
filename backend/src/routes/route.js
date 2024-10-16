@@ -51,33 +51,44 @@ route.post("/product-update");
 // image upload
 try {
   const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-      cb(null, "src/uploads");
+    destination: function (req, file, cb) {
+      cb(null, 'src/uploads')
     },
-    filename: (req, file, cb) => {
-      return cb(
-        null,
-        `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`
-      );
-    },
-  });
+    filename: function (req, file, cb) {
+      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+      cb(null, file.fieldname + '-' + uniqueSuffix)
+    }
+  })
   
-  const upload = multer({
-    fileFilter: (req, file, cb) => {
-      if (
-        file.mimetype == "image/png" ||
-        file.mimetype == "image/jpg" ||
-        file.mimetype == "image/jpeg" ||
-        file.mimetype == "image/webp"
-      ) {
-        cb(null, true);
-      } else {
-        cb(null, false);
-        return cb(new Error("Only .png, .jpg and .jpeg format allowed!"));
-      }
-    },
-    storage: storage,
-  });
+  const upload = multer({ storage: storage })
+  // const storage = multer.diskStorage({
+  //   destination: (req, file, cb) => {
+  //     cb(null, "src/uploads");
+  //   },
+  //   filename: (req, file, cb) => {
+  //     return cb(
+  //       null,
+  //       `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`
+  //     );
+  //   },
+  // });
+  
+  // const upload = multer({
+  //   fileFilter: (req, file, cb) => {
+  //     if (
+  //       file.mimetype == "image/png" ||
+  //       file.mimetype == "image/jpg" ||
+  //       file.mimetype == "image/jpeg" ||
+  //       file.mimetype == "image/webp"
+  //     ) {
+  //       cb(null, true);
+  //     } else {
+  //       cb(null, false);
+  //       return cb(new Error("Only .png, .jpg and .jpeg format allowed!"));
+  //     }
+  //   },
+  //   storage: storage,
+  // });
   
   route.post("/image-upload", upload.single("product"), imageUpload);
 } catch (error) {
