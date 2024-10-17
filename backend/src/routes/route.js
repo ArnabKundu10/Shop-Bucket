@@ -100,7 +100,7 @@ try {
 
   route.post("/image-upload", upload.single("product"), function (req, res) {
     if (!req.file) {
-      return res.status(400).json({
+      return res.status(500).json({
         success: 0,
         message: "No file uploaded!",
       });

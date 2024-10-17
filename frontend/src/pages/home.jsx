@@ -84,11 +84,12 @@ const Home = () => {
         ))}
        </div>
       </section>
+      {/* watches and cameras.................*/}
       <section className='bg-blackish electronics ps-5 pe-5'>
         <div className='vh-75 d-flex'>
           <div className='w-50 d-flex flex-column align-self-center align-items-center'>
           <p className='text-center text-white fs-1 fw-900 blackish'>
-         Brand New Watches With Extra Features   
+         Trending Watches from emerging brands under &#8377;20000 
           </p>
        <p className='text-center text-white opacity-less fw-bolder blackish'>
          Top brand's products at your hand with upto 60% discount  
@@ -112,10 +113,10 @@ const Home = () => {
        </div>
           <div className='w-50 d-flex flex-column align-self-center align-items-center'>
           <p className='text-center text-white fs-1 fw-900 blackish'>
-         Brand New Cameras With Extra Features   
+         Best selling Cameras from top brands Under 1 lack Only 
           </p>
        <p className='text-center text-white opacity-less fw-bolder blackish'>
-         Top brand's products at your hand with upto 60% discount  
+         Top brand's products at your hand with upto 50% discount  
          </p>
           </div>
       </div>
